@@ -1,0 +1,28 @@
+# PDK - nunca versionar, sao gigabytes
+pdks/
+.ciel/
+*.gds
+*.gds.gz
+
+# Saidas de ferramentas
+openram/output/
+librelane/runs/
+synth/work/
+synth/fv/
+sim/xcelium.d/
+sim/INCA_libs/
+*.log
+*.cmd
+*.key
+*.diag
+*.history
+
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Editor / SO
+.vscode/
+*.swp
+.DS_Store
