@@ -1,0 +1,73 @@
+OpenRAM: Nix devShell (venv on PATH: /home/lukas/Projects/OpenRAM/compiler/.venv)
+ERROR: file sram_config.py: line 149: invalid number of rows including dummy row(s): 65. Total cols must be divisible by 2
+[openram.globals/init_openram]: Initializing OpenRAM...
+[openram.globals/setup_paths]: OpenRAM source code found in /home/lukas/Projects/OpenRAM/compiler
+[openram.globals/setup_paths]: Temporary files saved in /tmp/openram_lukas_1691985_temp/
+[openram.globals/read_config]: Configuration file is /home/lukas/Projects/neorv32-openram-sky130/openram/sram_32x256_frontend.py
+[openram.globals/read_config]: Output saved in /home/lukas/Projects/neorv32-openram-sky130/openram/out_frontend_nospare/
+[openram.globals/install_nix]: Bootstrapping toolchain with Nix...
+[openram.globals/import_tech]: Tech directory found in /home/lukas/Projects/OpenRAM/technology:/home/lukas/Projects/OpenRAM/technology
+[openram.globals/import_tech]: Adding technology path: /home/lukas/Projects/OpenRAM/technology
+[openram.globals/import_tech]: Adding technology path: /home/lukas/Projects/OpenRAM/technology
+[openram.globals/init_paths]: Creating temp directory: /tmp/openram_lukas_1691985_temp/
+[openram.globals/setup_bitcell]: Using bitcell: bitcell_1port
+[openram.characterizer/<module>]: Initializing characterizer...
+[openram.characterizer/<module>]: Analytical model enabled.
+[openram.verify/<module>]: Initializing verify...
+[openram.verify/<module>]: LVS/DRC/PEX disabled.
+[openram.globals/setup_bitcell]: Using bitcell: bitcell_1port
+|==============================================================================|
+|=========                      OpenRAM v1.2.49                       =========|
+|=========                                                            =========|
+|=========               VLSI Design and Automation Lab               =========|
+|=========        Computer Science and Engineering Department         =========|
+|=========            University of California Santa Cruz             =========|
+|=========                                                            =========|
+|=========          Usage help: openram-user-group@ucsc.edu           =========|
+|=========        Development help: openram-dev-group@ucsc.edu        =========|
+|=========                See LICENSE for license info                =========|
+|==============================================================================|
+** Start: 09/06/2026 23:52:32
+Technology: sky130
+Total size: 8192 bits
+Word size: 32
+Words: 256
+Banks: 1
+Write size: 8
+RW ports: 1
+R-only ports: 0
+W-only ports: 0
+Netlist only mode (no physical design is being done, netlist_only=False to disable).
+DRC/LVS/PEX is only run on the top-level design to save run-time (inline_lvsdrc=True to do inline checking).
+DRC/LVS/PEX is disabled (check_lvsdrc=True to enable).
+Characterization is disabled (using analytical delay models) (analytical_delay=False to simulate).
+Only generating nominal corner timing.
+Words per row: None
+Output files are: 
+/home/lukas/Projects/neorv32-openram-sky130/openram/out_frontend_nospare/sram_1kbyte_1rw_32x256_8.lvs
+/home/lukas/Projects/neorv32-openram-sky130/openram/out_frontend_nospare/sram_1kbyte_1rw_32x256_8.sp
+/home/lukas/Projects/neorv32-openram-sky130/openram/out_frontend_nospare/sram_1kbyte_1rw_32x256_8.v
+/home/lukas/Projects/neorv32-openram-sky130/openram/out_frontend_nospare/sram_1kbyte_1rw_32x256_8.lib
+/home/lukas/Projects/neorv32-openram-sky130/openram/out_frontend_nospare/sram_1kbyte_1rw_32x256_8.py
+/home/lukas/Projects/neorv32-openram-sky130/openram/out_frontend_nospare/sram_1kbyte_1rw_32x256_8.html
+/home/lukas/Projects/neorv32-openram-sky130/openram/out_frontend_nospare/sram_1kbyte_1rw_32x256_8.log
+[openram.sram_config/recompute_sizes]: Recomputing with words per row: 4
+[openram.sram_config/recompute_sizes]: Rows: 64 Cols: 128
+[openram.sram_config/recompute_sizes]: Row addr size: 6 Col addr size: 2 Bank addr size: 8
+Traceback (most recent call last):
+  File "/home/lukas/Projects/OpenRAM/sram_compiler.py", line 73, in <module>
+    s = sram()
+        ^^^^^^
+  File "/home/lukas/Projects/OpenRAM/compiler/sram.py", line 27, in __init__
+    sram_config = config(word_size=OPTS.word_size,
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/lukas/Projects/OpenRAM/compiler/sram_config.py", line 51, in __init__
+    self.compute_sizes()
+  File "/home/lukas/Projects/OpenRAM/compiler/sram_config.py", line 102, in compute_sizes
+    self.recompute_sizes()
+  File "/home/lukas/Projects/OpenRAM/compiler/sram_config.py", line 149, in recompute_sizes
+    debug.error("invalid number of rows including dummy row(s): {}. Total cols must be divisible by {}".format(self.num_rows + num_ports, self.array_row_multiple), -1)
+  File "/home/lukas/Projects/OpenRAM/compiler/debug.py", line 48, in error
+    assert return_value == 0
+           ^^^^^^^^^^^^^^^^^
+AssertionError
