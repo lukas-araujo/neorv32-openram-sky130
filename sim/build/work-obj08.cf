@@ -1,0 +1,9 @@
+v 4
+file "/home/lukas/Projects/neorv32-openram-sky130/sim/" "../rtl/soc_config_pkg.vhd" "ed135cc60f5553586a5e3f280fe2fdcf31f57c2e" "20260907190530.192":
+  package soc_config_pkg at 16( 633) + 0 on 11;
+file "/home/lukas/Projects/neorv32-openram-sky130/sim/" "../rtl/neorv32_sram_soc_sim.vhd" "77924a61ef19ef7588186a4a7f2b65be5ec1c001" "20260907190540.346":
+  entity neorv32_sram_soc_sim at 60( 3233) + 0 on 12;
+  architecture rtl of neorv32_sram_soc_sim at 83( 3804) + 0 on 13;
+file "/home/lukas/Projects/neorv32-openram-sky130/sim/" "tb_neorv32_sram_soc.vhd" "15525241d2a6930bba5a2dd1c56c22d072a01a60" "20260907190540.473":
+  entity tb_neorv32_sram_soc at 15( 449) + 0 on 14;
+  architecture tb of tb_neorv32_sram_soc at 36( 978) + 0 on 15;
