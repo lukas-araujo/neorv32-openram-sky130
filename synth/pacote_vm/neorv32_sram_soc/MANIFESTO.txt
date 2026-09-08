@@ -1,0 +1,35 @@
+Projeto neorv32-openram-sky130 -- pacote para sintese no Cadence
+Gerado em: 2026-09-08T00:25:21-03:00
+
+INSTALACAO NA VM
+  Descompactar em  /prj/ci/workarea/<user>/projetos/
+  Conferir USER em backend/synthesis/scripts/run_first.tcl
+  Rodar:  cd backend/synthesis/scripts && source run_first.tcl
+
+CORNER UNICO: tt_025C_1v80
+  A macro de SRAM so foi caracterizada em TT 1.8V 25C. Outros corners
+  das celulas padrao nao teriam par na memoria.
+
+MACRO: sram_4kbyte_1rw_32x1024_8  (4 kB, 32x1024, byte-write, 1rw)
+  Gerada com OpenRAM em modo front-end (netlist_only = True).
+
+⚠️ O .lib usa modelo analitico de Elmore, SEM dependencia de slew:
+   para slews variando 32x o atraso e identico. A sintese FECHA e
+   produz numeros, mas eles NAO servem para conclusao de timing.
+   Use para COMPARAR configuracoes entre si.
+
+⚠️ DIVERGENCIA ENTRE AS VIEWS DA MACRO:
+     .v  (simulacao) 33 bits de dado, tem spare_wen0
+     .lib (sintese)  32 bits de dado, NAO tem spare_wen0
+   Por isso o RTL usa `ifdef SRAM_SYNTH_VIEW, e o script de sintese
+   le os Verilog com  -define SRAM_SYNTH_VIEW.
+
+⚠️ SEM QRC E SEM CAP TABLE: o sky130 aberto nao os distribui para o
+   fluxo Cadence. Por isso interconnect_mode = wireload, nao ple.
+   Consequencia: sem extracao RC confiavel; DRC/LVS ficam para o fluxo
+   aberto (LibreLane), no notebook.
+
+LICENCAS
+  sky130   Apache 2.0
+  NEORV32  BSD-3-Clause
+  Nada aqui vem do PDK TSMC da VM (NDA).

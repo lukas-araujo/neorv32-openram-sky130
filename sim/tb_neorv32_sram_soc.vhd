@@ -29,7 +29,7 @@ entity tb_neorv32_sram_soc is
 
     -- Baud rate esperado da UART. Precisa BATER com o que o software
     -- configura, senao o log sai como lixo.
-    BAUD_RATE : real := 19200.0
+    BAUD_RATE : real := 1000000.0
   );
 end entity;
 
