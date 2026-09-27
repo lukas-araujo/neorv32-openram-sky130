@@ -32,6 +32,30 @@
 // SRAM_SYNTH_VIEW sao consumidas la, nao aqui.
 //
 //-----------------------------------------------------------------------------
+// ?? POR QUE A DECODIFICACAO DE FAIXA NAO E OPCIONAL
+//-----------------------------------------------------------------------------
+// A primeira versao deste arquivo tinha 'assign wb_err_o = 1'b0;' e usava
+// apenas wb_adr_i[ADDR_BITS+1:2]. Os 20 bits altos do endereco NAO ERAM
+// LIDOS POR NINGUEM.
+//
+// Consequencia na sintese: o Genus concluiu -- CORRETAMENTE -- que a
+// logica que gerava aqueles bits nao tinha efeito observavel, e PODOU
+// tudo, inclusive dentro do NEORV32. O netlist saiu com
+//
+//     UNCONNECTED_HIER_Z3702, UNCONNECTED_HIER_Z3701, xbus_adr[11:2], ...
+//
+// so os bits [11:2] conectados. Na simulacao pos-sintese o xbus_adr
+// chegava com 'z' nos bits altos, o neorv32_bus_gateway comparava
+// contra 'z', o cyc saia em X e a CPU NUNCA COMECAVA.
+//
+// Nao era bug de ferramenta: era a ferramenta fazendo o certo sobre um
+// projeto incompleto. Usar o endereco completo nao e so boa pratica --
+// e o que impede a poda da logica que o produz.
+//
+// Bonus: acaba com o espelhamento a cada 4 kB. Um ponteiro errado agora
+// gera excecao de barramento em vez de ler lixo silenciosamente.
+//
+//-----------------------------------------------------------------------------
 // OUTROS CUIDADOS
 //-----------------------------------------------------------------------------
 // 1. Todos os sinais do XBUS so sao validos com cyc alto. Sem qualificar
@@ -41,6 +65,10 @@
 // 3. A macro tem sempre 1 bit de endereco a mais que o necessario (a
 //    linha sobressalente). O shim o amarra em 0. Hipotese CONFIRMADA em
 //    simulacao pelo teste do limite de 1 kB.
+// 4. Os bits wb_adr_i[1:0] (offset de byte dentro da palavra) continuam
+//    sem uso -- a selecao de byte vem por wb_sel_i. Eles podem seguir
+//    podados. CONFERIR no netlist depois de sintetizar: se o
+//    bus_gateway nao depender deles, nao ha problema.
 //=============================================================================
 
 `timescale 1ns / 1ps
@@ -72,7 +100,19 @@ module sram_wb_wrapper #(
     wire req = wb_cyc_i & wb_stb_i;
 
     //-------------------------------------------------------------------------
+    // Decodificacao de faixa -- declarada ANTES de quem a usa.
+    //
+    // Com ADDR_BITS = 10 (4 kB), a faixa valida e 0x00000000..0x00000FFF.
+    // Qualquer bit acima de [ADDR_BITS+1] em 1 significa fora da faixa.
+    //-------------------------------------------------------------------------
+    wire fora_da_faixa = |wb_adr_i[31:ADDR_BITS+2];
+
+    //-------------------------------------------------------------------------
     // Maquina de estados: emite o acesso em IDLE, reconhece em ACK.
+    //
+    // Acesso fora da faixa TAMBEM e reconhecido -- com err em vez de
+    // dado. Nunca deixar o barramento sem resposta: isso estouraria o
+    // XBUS_TIMEOUT e travaria por 2048 ciclos.
     //-------------------------------------------------------------------------
     localparam ST_IDLE = 1'b0;
     localparam ST_ACK  = 1'b1;
@@ -105,12 +145,32 @@ module sram_wb_wrapper #(
     end
 
     //-------------------------------------------------------------------------
+    // Sinalizacao de erro
+    //
+    // Acompanha o ack: o mestre amostra os dois na mesma borda.
+    //-------------------------------------------------------------------------
+    reg err_pendente;
+
+    always @(posedge clk_i or negedge rstn_i) begin
+        if (!rstn_i)
+            err_pendente <= 1'b0;
+        else if ((state == ST_IDLE) && req)
+            err_pendente <= fora_da_faixa;
+        else if (state == ST_ACK)
+            err_pendente <= 1'b0;
+    end
+
+    assign wb_err_o = wb_ack_o & err_pendente;
+
+    //-------------------------------------------------------------------------
     // Sinais para a SRAM (combinacionais).
     //
-    // csb0 so e ativado em ST_IDLE. Durante ST_ACK ele volta a 1, senao a
-    // SRAM reexecutaria o mesmo acesso na borda seguinte.
+    // csb0 so e ativado em ST_IDLE e SO dentro da faixa. Durante ST_ACK
+    // ele volta a 1, senao a SRAM reexecutaria o mesmo acesso na borda
+    // seguinte.
     //-------------------------------------------------------------------------
-    wire                 sram_csb0   = ~(req & (state == ST_IDLE));
+    wire                 sram_csb0   = ~(req & ~fora_da_faixa &
+                                         (state == ST_IDLE));
     wire                 sram_web0   = ~wb_we_i;      // 0 = escrita
     wire [3:0]           sram_wmask0 = wb_sel_i;
     wire [31:0]          sram_din0   = wb_dat_i;
@@ -119,19 +179,18 @@ module sram_wb_wrapper #(
     // Endereco de BYTE -> endereco de PALAVRA (descarta os 2 bits baixos).
     wire [ADDR_BITS-1:0] sram_addr0  = wb_adr_i[ADDR_BITS+1:2];
 
+    //-------------------------------------------------------------------------
     // Portao de saida: zera o dado quando nao estamos respondendo.
     //
     // OBRIGATORIO se houver mais de um escravo no XBUS. A forma padrao de
     // juntar escravos e fazer OR das respostas de todos eles; sem o
     // portao, esta SRAM injetaria lixo (e X, vindo do bit sobressalente
-    // nao inicializado) no OR o tempo todo, corrompendo a leitura dos
-    // outros. O modelo oficial sim/xbus_memory.vhd do NEORV32 faz o
-    // mesmo.
-    assign wb_dat_o = wb_ack_o ? sram_dout0 : 32'h0000_0000;
-
-    // Sem deteccao de erro: qualquer endereco entregue a este escravo e
-    // aceito. Enderecos acima de 1 kB espelham, por usar so os bits baixos.
-    assign wb_err_o = 1'b0;
+    // nao inicializado) no OR o tempo todo. O modelo oficial
+    // sim/xbus_memory.vhd do NEORV32 faz o mesmo.
+    //
+    // Fora da faixa tambem devolve zero, nao lixo.
+    //-------------------------------------------------------------------------
+    assign wb_dat_o = (wb_ack_o & ~err_pendente) ? sram_dout0 : 32'h0000_0000;
 
     //-------------------------------------------------------------------------
     // Memoria, atraves do shim. Tamanho e view sao resolvidos la dentro.

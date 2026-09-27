@@ -1,0 +1,122 @@
+OpenRAM: Nix devShell (venv on PATH: /home/lukas/Projects/OpenRAM/compiler/.venv)
+Sat Sep 19 01:54:47 AM -03 2026: Starting DRC using Magic /nix/store/1zcyq032zc3mzhmgs2j3q2rmfrjj5v6b-magic-vlsi-8.3.629/bin/magic
+
+Magic 8.3 revision 629 - Compiled on Thu Apr  9 04:26:22 UTC 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+WARNING: RLIMIT_NOFILE is above 1024 and Tcl_Version<9 this may cause runtime issues [rlim_cur=1048576]
+Using NULL graphics device.
+Processing system .magicrc file
+Switching to WIRING tool.
+Switching to NETLIST tool.
+Switching to PICK tool.
+Switching to BOX tool.
+Sourcing design .magicrc for technology sky130A ...
+2 Magic internal units = 1 Lambda
+Input style sky130(vendor): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    ubm 
+Scaled tech values by 2 / 1 to match internal grid scaling
+Loading sky130A Device Generator Menu ...
+Using technology "sky130A", version 1.0.291-63-ge829452
+Cell sram_1rw_32x16 read from current working directory
+sram_1rw_32x16: 10000 rects
+Finished loading cell sram_1rw_32x16
+Cell sram_1rw_32x16_contact_31 read from current working directory
+Scaled magic input cell sram_1rw_32x16_contact_31 geometry by factor of 2
+Cell sram_1rw_32x16_cr_1 read from current working directory
+Cell sram_1rw_32x16_data_dff read from current working directory
+Cell sky130_fd_bd_sram__openram_dff read from current working directory
+Cell sram_1rw_32x16_spare_wen_dff read from current working directory
+Cell sram_1rw_32x16_row_addr_dff read from current working directory
+Cell sram_1rw_32x16_bank read from current working directory
+Cell sram_1rw_32x16_sky130_capped_replica_bitcell_array read from current working directory
+Cell sram_1rw_32x16_sky130_replica_bitcell_array read from current working directory
+Cell sram_1rw_32x16_sky130_row_cap_array_0 read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_rowenda read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_rowend read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_cornerb read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_cornera read from current working directory
+Cell sram_1rw_32x16_sky130_row_cap_array read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_corner read from current working directory
+Cell sky130_fd_bd_sram__openram_sp_rowenda_replica read from current working directory
+Cell sky130_fd_bd_sram__openram_sp_rowend_replica read from current working directory
+Cell sram_1rw_32x16_sky130_replica_column read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_wlstrapa_p read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_wlstrap_p read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_colenda_p_cent read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_colenda read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_colend_p_cent read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_colend read from current working directory
+Cell sky130_fd_bd_sram__openram_sp_cell_opt1a_replica read from current working directory
+Cell sky130_fd_bd_sram__openram_sp_cell_opt1_replica read from current working directory
+Cell sram_1rw_32x16_sky130_dummy_array read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_wlstrapa read from current working directory
+Cell sky130_fd_bd_sram__openram_sp_cell_opt1a_dummy read from current working directory
+Cell sram_1rw_32x16_sky130_col_cap_array read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_colend_cent read from current working directory
+Cell sram_1rw_32x16_sky130_col_cap_array_0 read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_colenda_cent read from current working directory
+Cell sram_1rw_32x16_sky130_bitcell_array read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_wlstrap read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_cell_opt1a read from current working directory
+Cell sky130_fd_bd_sram__sram_sp_cell_opt1 read from current working directory
+Cell sram_1rw_32x16_port_data read from current working directory
+Cell sram_1rw_32x16_write_driver_array read from current working directory
+Cell sky130_fd_bd_sram__openram_write_driver read from current working directory
+Cell sram_1rw_32x16_sense_amp_array read from current working directory
+Cell sky130_fd_bd_sram__openram_sense_amp read from current working directory
+Cell sram_1rw_32x16_precharge_array read from current working directory
+Cell sram_1rw_32x16_precharge_0 read from current working directory
+Cell sram_1rw_32x16_port_address read from current working directory
+Cell sram_1rw_32x16_wordline_driver_array read from current working directory
+Cell sram_1rw_32x16_wordline_driver read from current working directory
+Cell sram_1rw_32x16_pinv_dec_0 read from current working directory
+Cell sky130_fd_bd_sram__openram_sp_nand2_dec read from current working directory
+Cell sram_1rw_32x16_hierarchical_decoder read from current working directory
+Cell sram_1rw_32x16_hierarchical_predecode3x8 read from current working directory
+Cell sram_1rw_32x16_pinv_dec read from current working directory
+Cell sram_1rw_32x16_and3_dec read from current working directory
+Cell sky130_fd_bd_sram__openram_sp_nand3_dec read from current working directory
+Cell sram_1rw_32x16_hierarchical_predecode2x4 read from current working directory
+Cell sram_1rw_32x16_and2_dec read from current working directory
+Cell sram_1rw_32x16_and2_dec_0 read from current working directory
+Cell sram_1rw_32x16_control_logic_rw read from current working directory
+Cell sram_1rw_32x16_pnand2_0 read from current working directory
+Cell sram_1rw_32x16_pinv_12 read from current working directory
+Cell sram_1rw_32x16_pdriver_4 read from current working directory
+Cell sram_1rw_32x16_pinv_14 read from current working directory
+Cell sram_1rw_32x16_pinv_13 read from current working directory
+Cell sram_1rw_32x16_pinv_4 read from current working directory
+Cell sram_1rw_32x16_pdriver_1 read from current working directory
+Cell sram_1rw_32x16_pinv_9 read from current working directory
+Cell sram_1rw_32x16_pdriver_0 read from current working directory
+Cell sram_1rw_32x16_pinv_8 read from current working directory
+Cell sram_1rw_32x16_pinv_7 read from current working directory
+Cell sram_1rw_32x16_pinv_6 read from current working directory
+Cell sram_1rw_32x16_pinv_5 read from current working directory
+Cell sram_1rw_32x16_pand3_0 read from current working directory
+Cell sram_1rw_32x16_pnand3 read from current working directory
+Cell sram_1rw_32x16_pdriver_3 read from current working directory
+Cell sram_1rw_32x16_pinv_11 read from current working directory
+Cell sram_1rw_32x16_pand3 read from current working directory
+Cell sram_1rw_32x16_pdriver_2 read from current working directory
+Cell sram_1rw_32x16_pinv_10 read from current working directory
+Cell sram_1rw_32x16_pand2 read from current working directory
+Cell sram_1rw_32x16_pnand2 read from current working directory
+Cell sram_1rw_32x16_pdriver read from current working directory
+Cell sram_1rw_32x16_pinv_1 read from current working directory
+Cell sram_1rw_32x16_dff_buf_array read from current working directory
+Cell sram_1rw_32x16_dff_buf_0 read from current working directory
+Cell sram_1rw_32x16_pinv_0 read from current working directory
+Cell sram_1rw_32x16_pinv read from current working directory
+Cell sram_1rw_32x16_delay_chain read from current working directory
+Cell sram_1rw_32x16_pinv_15 read from current working directory
+Processing timestamp mismatches.
+Timestamp mismatches found in these cells: sky130_fd_bd_sram__sram_sp_rowenda, sky130_fd_bd_sram__sram_sp_rowend, sky130_fd_bd_sram__sram_sp_cornerb, sky130_fd_bd_sram__sram_sp_cornera, sky130_fd_bd_sram__sram_sp_corner, sky130_fd_bd_sram__openram_sp_rowenda_replica, sky130_fd_bd_sram__openram_sp_rowend_replica, sky130_fd_bd_sram__openram_sp_cell_opt1a_replica, sky130_fd_bd_sram__openram_sp_cell_opt1_replica, sky130_fd_bd_sram__openram_sp_cell_opt1a_dummy, sky130_fd_bd_sram__sram_sp_colend, sky130_fd_bd_sram__sram_sp_colend_p_cent, sky130_fd_bd_sram__sram_sp_colend_cent, sky130_fd_bd_sram__sram_sp_colenda, sky130_fd_bd_sram__sram_sp_colenda_p_cent, sky130_fd_bd_sram__sram_sp_colenda_cent, sky130_fd_bd_sram__sram_sp_wlstrap_p, sky130_fd_bd_sram__sram_sp_wlstrapa, sky130_fd_bd_sram__sram_sp_wlstrap, sky130_fd_bd_sram__sram_sp_cell_opt1a, sky130_fd_bd_sram__sram_sp_cell_opt1.
+Finished expanding
+Finished drc check
+Loading DRC CIF style.
+Finished drc catchup
+Total DRC errors found: 7259
+Sat Sep 19 01:54:50 AM -03 2026: Finished (0) DRC using Magic /nix/store/1zcyq032zc3mzhmgs2j3q2rmfrjj5v6b-magic-vlsi-8.3.629/bin/magic

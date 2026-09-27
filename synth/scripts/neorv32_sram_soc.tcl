@@ -87,7 +87,7 @@ read_hdl -language vhdl -library neorv32 ${FRONTEND_DIR}/neorv32_cfs.vhd
 # Sem ele, o RTL instancia a view de SIMULACAO da macro (33 bits de
 # dado, com spare_wen0) e nao casa com o .lib (32 bits, sem spare_wen0).
 # O erro apareceria como porta nao conectada ou macro nao resolvida.
-read_hdl -language sv -define SRAM_SYNTH_VIEW \
+read_hdl -language sv -define {SRAM_SYNTH_VIEW SRAM_4KB} \
     [list ${FRONTEND_DIR}/sram_macro_shim.v \
           ${FRONTEND_DIR}/sram_wb_wrapper.v]
 

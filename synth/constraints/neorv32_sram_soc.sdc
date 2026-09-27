@@ -46,7 +46,7 @@ set_false_path -from [get_ports ${MAIN_RST_NAME}]
 ## INPUT PINS
 #################################################################################
 set entradas [remove_from_collection [all_inputs] \
-              "[get_ports ${MAIN_CLOCK_NAME}] [get_ports ${MAIN_RST_NAME}]"]
+              [get_ports [list ${MAIN_CLOCK_NAME} ${MAIN_RST_NAME}]]]
 
 set_input_delay -clock [get_clocks ${MAIN_CLOCK_NAME}] ${in_delay} $entradas
 
